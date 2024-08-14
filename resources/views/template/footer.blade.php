@@ -1,0 +1,3 @@
+{{-- <footer class="page-footer">
+    <p class="mb-0">Rekomendasi Pemupukan &copy; <?= date('Y'); ?></p>
+</footer> --}}

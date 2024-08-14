@@ -1,0 +1,70 @@
+<!-- resources/views/phtanahpanen/index.blade.php -->
+
+@extends('layout.master')
+@section('content')
+    <div class="page-wrapper">
+        <div class="page-content">
+            <!--breadcrumb-->
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                <div class="breadcrumb-title pe-3">PH Tanah Panen</div>
+                <div class="ps-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0 p-0">
+                            <li class="breadcrumb-item"><a href="javascript;;"><i class="bx bx-home-alt"></i></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Data PH Tanah Panen</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!--end breadcrumb-->
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <a href="{{ route('ph-tanah-panen.create') }}" class="btn btn-success">Tambah <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div class="card-body">
+                        @if (session()->has('message'))
+                            <div class="alert alert-info">
+                                {{ session('message') }}
+                            </div>
+                        @endif
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0" id="example2">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Kode PH</th>
+                                        <th scope="col">Level PH</th>
+                                        <th scope="col">Keterangan</th>
+                                        <th scope="col">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $no=1; @endphp
+                                    @foreach ($phTanahPanens as $phTanahPanen)
+                                        <tr>
+                                            <th scope="row">{{ $no }}</th>
+                                            <td>{{ $phTanahPanen->kode_ph }}</td>
+                                            <td>{{ $phTanahPanen->ph_level }}</td>
+                                            <td>{{ $phTanahPanen->keterangan }}</td>
+                                            <td>
+                                                <form action="{{ route('ph-tanah-panen.destroy', $phTanahPanen->id) }}" method="POST">
+                                                    <a href="{{ route('ph-tanah-panen.edit', $phTanahPanen->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?')"><i class="fa fa-trash"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @php $no++ @endphp
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
